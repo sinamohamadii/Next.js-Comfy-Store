@@ -5,15 +5,25 @@ import { formatCurrency } from '@/utils/format';
 import FavoriteToggleButton from '@/components/products/FavoriteToggleButton';
 import AddToCart from '@/components/single-product/AddToCart';
 import ProductRating from '@/components/single-product/ProductRating';
+import { type PageProps } from "next";
 
 
-interface ProductPageProps {
-    params: { id: string }
-    searchParams?: { [key: string]: string | string[] | undefined }
+interface Params {
+    id: string;
 }
 
+interface SearchParams {
+    color?: string;
+    page?: string;
+}
 
-async function SingleProductPage({ params, searchParams }: ProductPageProps) {
+async function SingleProductPage({
+    params,
+    searchParams,
+}: {
+    params: Params;
+    searchParams?: SearchParams;
+}) {
     const product = await fetchSingleProduct(params.id)
     const { name, image, company, price, description } = product;
     const dollarsAmount = formatCurrency(price);
