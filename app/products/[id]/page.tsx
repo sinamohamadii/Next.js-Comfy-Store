@@ -6,12 +6,14 @@ import FavoriteToggleButton from '@/components/products/FavoriteToggleButton';
 import AddToCart from '@/components/single-product/AddToCart';
 import ProductRating from '@/components/single-product/ProductRating';
 
-interface PageProps {
+
+interface ProductPageProps {
     params: { id: string }
+    searchParams?: { [key: string]: string | string[] | undefined }
 }
 
 
-async function SingleProductPage({ params }: PageProps) {
+async function SingleProductPage({ params, searchParams }: ProductPageProps) {
     const product = await fetchSingleProduct(params.id)
     const { name, image, company, price, description } = product;
     const dollarsAmount = formatCurrency(price);
