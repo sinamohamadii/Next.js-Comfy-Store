@@ -6,10 +6,17 @@ import FavoriteToggleButton from '@/components/products/FavoriteToggleButton';
 import AddToCart from '@/components/single-product/AddToCart';
 import ProductRating from '@/components/single-product/ProductRating';
 import ShareButton from '@/components/single-product/ShareButton';
+import SubmitReview from '@/components/reviews/SubmitReview';
+import ProductReviews from '@/components/reviews/ProductReviews';
+import { findExistingReview } from '@/utils/actions';
+import { auth } from '@clerk/nextjs/server';
 
 
 async function SingleProductPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
+    const { userId } = auth();
+    const reviewDoesNotExist =
+        userId && !(await findExistingReview(userId, id));
 
     const product = await fetchSingleProduct(id)
     const { name, image, company, price, description } = product;
@@ -49,6 +56,8 @@ async function SingleProductPage({ params }: { params: Promise<{ id: string }> }
                     <AddToCart productId={id} />
                 </div>
             </div>
+            <ProductReviews productId={id} />
+            {reviewDoesNotExist && <SubmitReview productId={id} />}
         </section>
     );
 }
