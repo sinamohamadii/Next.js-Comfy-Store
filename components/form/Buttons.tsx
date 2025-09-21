@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { SignInButton } from '@clerk/nextjs';
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
-import { LuTrash2, LuPencilLine  } from 'react-icons/lu';
+import { LuTrash2, LuPencilLine } from 'react-icons/lu';
 
 type btnSize = 'default' | 'lg' | 'sm';
 
@@ -50,7 +50,7 @@ export const IconButton = ({ actionType }: { actionType: actionType }) => {
   const renderIcon = () => {
     switch (actionType) {
       case 'edit':
-        return <LuPencilLine  />;
+        return <LuPencilLine />;
       case 'delete':
         return <LuTrash2 />;
       default:
@@ -104,5 +104,15 @@ export const CardSubmitButton = ({ isFavorite }: { isFavorite: boolean }) => {
         <FaRegHeart />
       )}
     </Button>
+  );
+};
+
+export const ProductSignInButton = () => {
+  return (
+    <SignInButton mode='modal'>
+      <Button type='button' size='default' className='mt-8'>
+        Please Sign In
+      </Button>
+    </SignInButton>
   );
 };
